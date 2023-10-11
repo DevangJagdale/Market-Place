@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<script src="home.js"></script>
+<style>
+    /* Add custom CSS for making the footer stay at the bottom */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    footer {
+        margin-top: auto;
+        background-color: #343a40; /* Change to your desired background color */
+        color: white;
+        padding: 20px;
+    }
+</style>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <div class="navbar-text mr-auto">
+                <h4><span id="username">Welcome, User Name</span></h4>
+            </div>
+
+            <div class="navbar-text">
+                <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#sellModal">Sell</button>
+                <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#offerReceivedModal" onclick="getOffers()">Offer Received</button>
+                <button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#boughtModal" onclick="getPurchase()">Purchased</button>
+                <a class="btn btn-danger" id="logout-button">Logout</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<br>
+<br>
+<main>
+    <section class="container">
+        <!-- Create dynamic boxes using Bootstrap grid system -->
+        <div class="row">
+
+        </div>
+    </section>
+
+    <!--    open form to sell-->
+    <div class="modal fade" id="sellModal" tabindex="-1" role="dialog" aria-labelledby="sellModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sellModalLabel">Sell a Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Add your product details form here -->
+                    <form>
+                        <div class="form-group">
+                            <label for="productName">Product Name</label>
+                            <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Product Description</label>
+                            <textarea class="form-control" id="productDescription" rows="4" placeholder="Enter product description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Product Price</label>
+                            <input type="text" class="form-control" id="productPrice" placeholder="Enter product price">
+                        </div>
+                        <div class="form-group">
+                            <label for="sellerAddress">Address</label>
+                            <input type="text" class="form-control" id="sellerAddress" placeholder="Enter product pickup address">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="sell-submit-button">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--Open form to place negotiate-->
+    <div class="modal fade" id="bidModal" tabindex="-1" role="dialog" aria-labelledby="bidModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bidModalLabel">Place a Counter offer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Add your bid form here -->
+                    <form>
+                        <div class="form-group">
+                            <label for="bidAmount">Counter Amount</label>
+                            <input type="text" class="form-control" id="bidAmount" placeholder="Enter your offer amount">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="place-bid-button">Send offer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Offer Received Modal -->
+    <div class="modal fade" id="offerReceivedModal" tabindex="-1" role="dialog" aria-labelledby="offerReceivedModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="offerReceivedModalLabel">Offer Received</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="listOffer">
+                    <!-- List of placeholders with buttons -->
+                    <ul class="list-group">
+
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal for purchased data -->
+    <div class="modal fade" id="boughtModal" tabindex="-1" role="dialog" aria-labelledby="offerReceivedModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="boughtModalLabel">Products Purchased</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="listOffer">
+                    <!-- List of placeholders with buttons -->
+                    <ul class="purchaseList">
+
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2023 Devang Jagdale. All rights reserved.</p>
+</footer>
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    getName();
+
+    getListOfProducts();
+
+
+    // Event listener for logout button
+    document.getElementById('logout-button').addEventListener('click', function(event) {
+        event.preventDefault();
+        logout(); // Call the logout function when the button is clicked
+        window.location.href = 'Login.html';
+    });
+
+
+    // Event listener for the "Submit" button in the sell modal
+    document.getElementById('sell-submit-button').addEventListener('click', function() {
+        // Collect the product details from the form
+        const productName = document.getElementById('productName').value;
+        const productDescription = document.getElementById('productDescription').value;
+        const productPrice = document.getElementById('productPrice').value;
+        const sellerAddress = document.getElementById('sellerAddress').value;
+
+        // Call the sellProduct() function with the collected data
+        sellProduct(productName, productDescription,productPrice,sellerAddress);
+    });
+
+
+    // Event listener for Place Bid button
+    document.getElementById('place-bid-button').addEventListener('click', function() {
+        const bidAmount = document.getElementById('bidAmount').value;
+
+        console.log('Placing bid:', bidAmount);
+        placeBid(bidAmount);
+        // Close the bid modal
+        $('#bidModal').modal('hide');
+
+    });
+
+</script>
+
+</body>
+</html>
