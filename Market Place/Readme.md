@@ -36,16 +36,3 @@ Marketplace is the ideal destination for individuals looking to buy or sell prod
        b. CSS
     
        c.JavaScript
-## 3. Project Screenshots
-
-### Authentication
-
-### HomePage
-
-### Sell Product
-
-### Buy Product
-
-### Offer Received
-
-### Purchased
